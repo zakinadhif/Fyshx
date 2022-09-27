@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(CMakeSFMLProject LANGUAGES CXX)
+project(Fyshx LANGUAGES C CXX)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -7,12 +7,23 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(CMakeSFMLProject src/main.cpp)
-target_link_libraries(CMakeSFMLProject PRIVATE sfml-graphics)
-target_compile_features(CMakeSFMLProject PRIVATE cxx_std_17)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+
+add_executable(Fyshx ${SOURCES})
+
+target_link_libraries(Fyshx
+    PRIVATE
+    sfml-graphics
+)
+
+target_compile_features(Fyshx
+    PRIVATE
+    cxx_std_17
+)
+
 if (WIN32 AND BUILD_SHARED_LIBS)
-    add_custom_command(TARGET CMakeSFMLProject POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:CMakeSFMLProject> $<TARGET_FILE_DIR:CMakeSFMLProject> COMMAND_EXPAND_LISTS)
+    add_custom_command(TARGET Fyshx POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Fyshx> $<TARGET_FILE_DIR:Fyshx> COMMAND_EXPAND_LISTS)
 endif()
 
-install(TARGETS CMakeSFMLProject)
+install(TARGETS Fyshx)
