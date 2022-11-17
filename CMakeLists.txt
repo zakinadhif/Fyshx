@@ -1,21 +1,20 @@
 cmake_minimum_required(VERSION 3.21)
-project(
-  Fyshx
-  VERSION 0.1.0
-  DESCRIPTION "Foo"
-  LANGUAGES CXX C)
+project(Fyshx LANGUAGES CXX C)
+
+set(CMAKE_CXX_STANDARD 20)
 
 include(FetchContent)
+
 FetchContent_Declare(SFML
 	GIT_REPOSITORY https://github.com/SFML/SFML.git
 	GIT_TAG 2.6.x
 	)
-FetchContent_MakeAvailable(SFML)
-
 FetchContent_Declare(fmt
 	GIT_REPOSITORY https://github.com/fmtlib/fmt.git
 	GIT_TAG 9.1.0
 	)
+
+FetchContent_MakeAvailable(SFML)
 FetchContent_MakeAvailable(fmt)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
