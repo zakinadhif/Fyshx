@@ -9,9 +9,17 @@
 #include "fmt/printf.h"
 
 struct Body {
-	sf::Vector2f position;
-	float rotation;
-	float radius;
+	float radius {};
+
+	sf::Vector2f position {};
+	sf::Vector2f velocity {};
+	sf::Vector2f acceleration {};
+
+	float rotation {};
+	float angularVelocity {};
+	float angularAcceleration {};
+
+	float mass {1.0f};
 
 	Body(const sf::Vector2f& position, float rotation, float radius)
 		: position(position), rotation(rotation), radius(radius) {}
