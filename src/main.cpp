@@ -12,6 +12,9 @@ struct Body {
 	sf::Vector2f position;
 	float rotation;
 	float radius;
+
+	Body(const sf::Vector2f& position, float rotation, float radius)
+		: position(position), rotation(rotation), radius(radius) {}
 };
 
 void renderBodies(sf::RenderTarget& target, const std::vector<Body>& bodies)
@@ -81,11 +84,7 @@ int main()
 	window.setFramerateLimit(144);
 
 	std::vector<Body> bodies;
-	bodies.emplace_back(Body {
-			.position = {200.f, 200.f},
-			.rotation = 0.0f,
-			.radius = 9.0f,
-			});
+	bodies.emplace_back(sf::Vector2f{200.f, 200.f}, 0.0f, 9.0f);
 
 	ShaderManager shaderManager;
 	auto& gridShader = shaderManager.load("grid", "assets/grid.vertex.glsl", "assets/grid.fragment.glsl");
