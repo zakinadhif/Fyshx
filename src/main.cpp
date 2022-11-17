@@ -17,19 +17,6 @@ struct Body {
 		: position(position), rotation(rotation), radius(radius) {}
 };
 
-void renderBodies(sf::RenderTarget& target, const std::vector<Body>& bodies)
-{
-	sf::CircleShape circle;
-
-	for (const auto& body : bodies) {
-		circle.setPosition(body.position);
-		circle.setRotation(body.rotation);
-		circle.setRadius(body.radius);
-
-		target.draw(circle);
-	}
-}
-
 class ShaderManager {
 	private:
 		struct Shader {
@@ -78,18 +65,29 @@ class ShaderManager {
 		std::unordered_map<std::string, Shader> m_shaders;
 };
 
+void renderBodies(sf::RenderTarget& target, const std::vector<Body>& bodies)
+{
+	sf::CircleShape circle;
+
+	for (const auto& body : bodies) {
+		circle.setPosition(body.position);
+		circle.setRotation(body.rotation);
+		circle.setRadius(body.radius);
+
+		target.draw(circle);
+	}
+}
+
 int main()
 {
 	auto window = sf::RenderWindow{ { 400u, 400u }, "Physics Simulation" };
 	window.setFramerateLimit(144);
 
-	std::vector<Body> bodies;
-	bodies.emplace_back(sf::Vector2f{200.f, 200.f}, 0.0f, 9.0f);
-
 	ShaderManager shaderManager;
 	auto& gridShader = shaderManager.load("grid", "assets/grid.vertex.glsl", "assets/grid.fragment.glsl");
 
-	shaderManager.get("ayam");
+	std::vector<Body> bodies;
+	bodies.emplace_back(sf::Vector2f{200.f, 200.f}, 0.0f, 9.0f);
 
 	sf::RectangleShape gridLayer({400.f, 400.f});
 	gridLayer.setPosition({0.f, 0.f});
